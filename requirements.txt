@@ -1,0 +1,9 @@
+fastapi
+langchain
+google-generativeai
+sqlalchemy
+aiosqlite
+pydantic
+python-dotenv
+pyjwt
+passlib

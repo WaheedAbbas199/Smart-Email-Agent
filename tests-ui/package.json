@@ -1,0 +1,1 @@
+{ "name": "smart-email-agent-ui-tests", "private": true, "scripts": { "test": "node ui.test.js" }, "devDependencies": { "jsdom": "^26.0.0" } }

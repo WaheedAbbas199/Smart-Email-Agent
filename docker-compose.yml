@@ -1,0 +1,20 @@
+# Quick start (SQLite, demo mode):   docker compose up --build
+# With PostgreSQL:                   docker compose --profile postgres up --build   (and set DATABASE_URL below)
+services:
+  app:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    env_file: .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////data/smart_email.db}
+    ports: ["8000:8000"]
+    volumes: ["app-data:/data"]
+  postgres:
+    image: postgres:16-alpine
+    profiles: ["postgres"]
+    environment: { POSTGRES_USER: smart, POSTGRES_PASSWORD: smart_dev_only, POSTGRES_DB: smart_email }
+    volumes: ["pg-data:/var/lib/postgresql/data"]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U smart"], interval: 5s, retries: 10 }
+  # Future: redis + worker services (see README "Production hardening roadmap")
+volumes:
+  app-data:
+  pg-data:
